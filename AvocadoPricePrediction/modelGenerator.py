@@ -68,14 +68,14 @@ def plot_the_model(trained_weight, trained_bias, feature, label):
     plt.ylabel(label)
 
     # Create a scatter plot from 200 random points of the dataset.
-    random_examples = training_df.sample(n=200)
+    random_examples = training_df.sample(n=500)
     plt.scatter(random_examples[feature], random_examples[label])
 
     # Create a red line representing the model. The red line starts
     # at coordinates (x0, y0) and ends at coordinates (x1, y1).
     x0 = 0
     y0 = trained_bias
-    x1 = 150
+    x1 = 40
     y1 = trained_bias + (trained_weight * x1)
     plt.plot([x0, x1], [y0, y1], c='r')
 
@@ -101,9 +101,9 @@ print("Defined the plot_the_model and plot_the_loss_curve functions.")
 my_label = 'AveragePrice'
 my_feature = 'Total Volume'
 # The following variables are the hyperparameters.
-learning_rate = 0.02
-epochs = 50
-batch_size = 5
+learning_rate = 0.07
+epochs = 250
+batch_size = 30
 
 # Split the original training set into a reduced training set and a
 # validation set.
@@ -128,16 +128,16 @@ plot_the_loss_curve(epochs, rmse)
 def predict_price(n, feature, label):
     """Predict admission chance based on a feature."""
 
-    batch = training_df[feature][100:100 + n]
+    batch = training_df[feature][50:50 + n]
     predicted_values = my_model.predict_on_batch(x=batch)
 
     print("feature              label               predicted")
     print("  value              value               value")
-    print("Avocados(thousands)  Avocado $            Avocado $ ")
+    print("Avocados(10thousands)  Avocado $            Avocado $ ")
     print("--------------------------------------")
     for i in range(n):
-        print("%2f     %2f            %2f" % (training_df[feature][100 + i],
-                                              training_df[label][100 + i],
+        print("%2f     %2f            %2f" % (training_df[feature][50 + i],
+                                              training_df[label][50 + i],
                                               predicted_values[i][0]))
 
 

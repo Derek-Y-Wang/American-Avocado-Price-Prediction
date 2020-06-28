@@ -9,7 +9,7 @@ class AvocadoCleaner:
         pd.options.display.float_format = "{:.2f}".format
 
         self.data = pd.read_csv(source)
-        self.data["Total Volume"] /= 1000.0
+        self.data["Total Volume"] /= 10000.0
 
     def _remove_unwanted_features(self):
         for i in self.data:
@@ -28,9 +28,16 @@ class AvocadoCleaner:
                 self.data.drop(self.data.index[index])
         # print(len(day))
 
+    def _remove_extremes(self):
+        for index, row in self.data.iterrows():
+            if row['Total Volume'] > 50.0 or row['AveragePrice'] > 2:
+                self.data = self.data.drop(index=index)
+                self.data.reset_index(drop=True)
+
     def process_data(self):
         self._remove_unwanted_features()
-        self._remove_repeated_dates()
+        # self._remove_repeated_dates()
+        self._remove_extremes()
         return self.data
 
     def plot_graph(self):
@@ -44,9 +51,6 @@ class AvocadoCleaner:
 
 
 # a = AvocadoCleaner()
-# a.process_data()
-# a.plot_graph()
-# with pd.option_context('display.max_rows', 10, 'display.max_columns',
-#                        None):  # more options can be specified also
-#     print(a.data)
-# a._remove_repeated_dates()
+# a._remove_unwanted_features()
+# print(a.data)
+# a._remove_extremes()

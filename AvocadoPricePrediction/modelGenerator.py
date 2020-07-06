@@ -29,7 +29,7 @@ def build_model(my_learning_rate):
     return model
 
 
-def train_model(model, df, feature, label, epochs, batch_size, feature2):
+def train_model(model, df, feature, label, epochs, batch_size):
     """Train the model by feeding it data."""
 
     # Feed the model the feature and the label.
@@ -68,14 +68,14 @@ def plot_the_model(trained_weight, trained_bias, feature, label):
     plt.ylabel(label)
 
     # Create a scatter plot from 200 random points of the dataset.
-    random_examples = training_df.sample(n=500)
+    random_examples = training_df.sample(n=300)
     plt.scatter(random_examples[feature], random_examples[label])
 
     # Create a red line representing the model. The red line starts
     # at coordinates (x0, y0) and ends at coordinates (x1, y1).
-    x0 = 0
+    x0 = 5
     y0 = trained_bias
-    x1 = 40
+    x1 = 50
     y1 = trained_bias + (trained_weight * x1)
     plt.plot([x0, x1], [y0, y1], c='r')
 
@@ -118,8 +118,7 @@ shuffled_train_df = training_df.reindex(
 my_model = build_model(learning_rate)
 weight, bias, epochs, rmse = train_model(my_model, shuffled_train_df,
                                          my_feature,
-                                         my_label, epochs, batch_size,
-                                         validation_split)
+                                         my_label, epochs, batch_size)
 
 plot_the_model(weight, bias, my_feature, my_label)
 plot_the_loss_curve(epochs, rmse)
@@ -141,4 +140,4 @@ def predict_price(n, feature, label):
                                               predicted_values[i][0]))
 
 
-predict_price(20, my_feature, my_label)
+predict_price(10, my_feature, my_label)

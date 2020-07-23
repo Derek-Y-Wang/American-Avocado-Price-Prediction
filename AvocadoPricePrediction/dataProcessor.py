@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-
+from sklearn.impute import  SimpleImputer
+import numpy as np
 
 class AvocadoCleaner:
     def __init__(self):
@@ -13,7 +14,7 @@ class AvocadoCleaner:
 
     def _remove_unwanted_features(self):
         for i in self.data:
-            if i == 'Total Volume' or i == 'AveragePrice' or i == 'Date':
+            if i == "region" or i == 'Total Volume' or i == 'AveragePrice' or i == 'Date':
                 continue
             else:
                 del self.data[i]
@@ -34,10 +35,16 @@ class AvocadoCleaner:
                 self.data = self.data.drop(index=index)
                 self.data.reset_index(drop=True)
 
+    def fill_missing_data(self):
+        imputer = SimpleImputer(missing_values=np.nan, strategy='mean')
+        imputer.fit(self.data[:, :-1])
+        imputer.transform(self.data[:, :-1])
+
     def process_data(self):
         self._remove_unwanted_features()
         # self._remove_repeated_dates()
         self._remove_extremes()
+        self.fill_missing_data()
         return self.data
 
     def plot_graph(self):
@@ -50,7 +57,7 @@ class AvocadoCleaner:
         plt.show()
 
 
-# a = AvocadoCleaner()
-# a._remove_unwanted_features()
-# print(a.data)
-# a._remove_extremes()
+a = AvocadoCleaner()
+a._remove_unwanted_features()
+print(a.data)
+a._remove_extremes()

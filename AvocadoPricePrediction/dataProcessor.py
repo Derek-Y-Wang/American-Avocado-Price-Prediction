@@ -36,9 +36,17 @@ class AvocadoCleaner:
                 self.data.reset_index(drop=True)
 
     def fill_missing_data(self):
+        # reoptimize
         imputer = SimpleImputer(missing_values=np.nan, strategy='mean')
         imputer.fit(self.data[:, :-1])
         imputer.transform(self.data[:, :-1])
+
+    def encode_region(self):
+        # reoptimize
+        from sklearn.compose import ColumnTransformer
+        from sklearn.preprocessing import OneHotEncoder
+        ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [-1])], remainder='passthrough')
+        self.data = np.array(ct.fit_transform(self.data))
 
     def process_data(self):
         self._remove_unwanted_features()

@@ -10,11 +10,12 @@ class AvocadoCleaner:
         pd.options.display.float_format = "{:.2f}".format
 
         self.data = pd.read_csv(source)
+
         self.data["Total Volume"] /= 10000.0
 
     def _remove_unwanted_features(self):
         for i in self.data:
-            if i == "region" or i == 'Total Volume' or i == 'AveragePrice' or i == 'Date':
+            if i == "region" or i == 'Total Volume' or i == 'AveragePrice' or i == 'year':
                 continue
             else:
                 del self.data[i]
@@ -45,8 +46,11 @@ class AvocadoCleaner:
         # reoptimize
         from sklearn.compose import ColumnTransformer
         from sklearn.preprocessing import OneHotEncoder
-        ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [-1])], remainder='passthrough')
+        # print(self.data['region'])
+        ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [3])], remainder='passthrough')
         self.data = np.array(ct.fit_transform(self.data))
+        print(self.data)
+        return self.data
 
     def process_data(self):
         self._remove_unwanted_features()
@@ -67,5 +71,7 @@ class AvocadoCleaner:
 
 a = AvocadoCleaner()
 a._remove_unwanted_features()
+# a._remove_extremes()
 print(a.data)
-a._remove_extremes()
+print(a.encode_region()[0])
+

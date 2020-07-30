@@ -57,7 +57,7 @@ class AvocadoCleaner:
         self._remove_unwanted_features()
         # self._remove_repeated_dates()
         self._remove_extremes()
-        self._fill_missing_data()
+        # self._fill_missing_data()
         return self.data
 
     def plot_graph(self):
@@ -70,9 +70,9 @@ class AvocadoCleaner:
         plt.show()
 
 
-# a = AvocadoCleaner()
+a = AvocadoCleaner()
 # a._remove_unwanted_features()
 # a._remove_extremes()
-# print(a.data)
+print(a.data)
 # print(a.encode_region())
 

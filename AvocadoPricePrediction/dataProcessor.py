@@ -70,9 +70,10 @@ class AvocadoCleaner:
         plt.show()
 
 
-a = AvocadoCleaner()
+# a = AvocadoCleaner()
 # a._remove_unwanted_features()
 # a._remove_extremes()
-print(a.data)
+# a.process_data()
+# print(a.data)
 # print(a.encode_region())
 

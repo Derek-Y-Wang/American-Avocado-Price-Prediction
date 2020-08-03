@@ -37,7 +37,7 @@ plt.show()
 
 # Visualising the Test set results
 plt.scatter(X_test[:200], y_test[:200], color = 'red')
-plt.plot(X_train, regressor.predict(X_train), color = 'blue')
+plt.plot(X_train, regressor                     .predict(X_train), color = 'blue')
 plt.title('Avocado Price vs Total Volume (Training set)')
 plt.xlabel('Volume')
 plt.ylabel('Price')

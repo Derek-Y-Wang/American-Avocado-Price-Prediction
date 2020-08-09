@@ -7,7 +7,6 @@ import numpy as np
 
 dataset = data.AvocadoCleaner().process_data()
 X = dataset.iloc[:, 1].values
-
 dataset_result = data.AvocadoCleaner().process_data()
 y = dataset.iloc[:, 0].values
 

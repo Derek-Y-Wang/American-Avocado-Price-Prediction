@@ -16,7 +16,7 @@ class AvocadoCleaner:
 
     def _remove_unwanted_features(self):
         for i in self.data:
-            if i == "region" or i == 'Total Volume' or i == 'AveragePrice' or i == 'year':
+            if i == 'Total Volume' or i == 'AveragePrice' or i == 'year':
                 continue
             else:
                 del self.data[i]

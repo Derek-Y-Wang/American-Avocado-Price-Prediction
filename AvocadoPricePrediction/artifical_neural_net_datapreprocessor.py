@@ -60,3 +60,6 @@ class NeuralNetPreprocessor:
 # a = NeuralNetPreprocessor()
 # a._remove_unrelated_features()
 # a.process()
+# print(a.get_X_test())
+# print('=======')
+# print(a.get_X_train())

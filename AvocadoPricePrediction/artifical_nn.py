@@ -17,7 +17,7 @@ class ArtificialBrain:
 
     def train_brain(self):
         self.ann.compile(optimizer='adam', loss='mean_squared_error')
-        self.ann.fit(self.X_train, self.y_train, batch_size=32, epochs=150)
+        self.ann.fit(self.X_train, self.y_train, batch_size=40, epochs=150)
 
 
 if __name__ == "__main__":
@@ -29,7 +29,16 @@ if __name__ == "__main__":
     art_nn.create_net(6)
     art_nn.train_brain()
 
+    # test
     y_pred = art_nn.ann.predict(data.get_X_test())
     np.set_printoptions(precision=2)
-    print(np.concatenate(
-        (y_pred.reshape(len(y_pred), 1), data.get_y_test().reshape(len(data.get_y_test()), 1)), 1))
+    viewable = np.concatenate((y_pred.reshape(len(y_pred), 1),
+                               data.get_y_test().reshape(len(data.get_y_test()),
+                                                         1)), 1)
+    print(viewable)
+
+
+
+
+
+

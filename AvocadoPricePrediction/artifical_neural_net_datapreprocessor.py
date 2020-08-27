@@ -20,6 +20,7 @@ class NeuralNetPreprocessor:
                 del self.data[i]
 
     def process(self):
+        self._remove_unrelated_features()
         X = self.data.iloc[:, 2:].values
         y = self.data.iloc[:, 1].values
 
@@ -30,12 +31,15 @@ class NeuralNetPreprocessor:
 
         # We want to one hot encode the 'type'
         # remember one hot encoding moves the binaries to the front of the array
-        ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [-3])], remainder="passthrough")
+        ct = ColumnTransformer(
+            transformers=[('encoder', OneHotEncoder(), [-3])],
+            remainder="passthrough")
         X = np.array(ct.fit_transform(X))
 
         # let us split that dataset into test and results
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size=0.1,
-                                                            random_state=0)
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
+            X, y, test_size=0.1,
+            random_state=0)
         # feature scale
         sc = StandardScaler()
         self.X_train = sc.fit_transform(self.X_train)
@@ -53,6 +57,6 @@ class NeuralNetPreprocessor:
     def get_y_test(self):
         return self.y_test
 
-a = NeuralNetPreprocessor()
-a._remove_unrelated_features()
-a.process()
+# a = NeuralNetPreprocessor()
+# a._remove_unrelated_features()
+# a.process()

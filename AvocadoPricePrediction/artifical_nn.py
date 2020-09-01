@@ -20,13 +20,10 @@ class ArtificialBrain:
         self.ann.fit(self.X_train, self.y_train, batch_size=40, epochs=100)
 
     def save(self):
-        self.ann.save_weights("./saved_models")
+        self.ann.save("./saved_models")
 
-    def load(self, path, n):
-        self.ann = None
-        self.ann = tf.keras.models.Sequential()
-        self.create_net(n)
-        self.ann.load_weights(path)
+    def load(self, path):
+        self.ann = tf.keras.models.load_model(path)
 
 
 if __name__ == "__main__":
@@ -40,7 +37,7 @@ if __name__ == "__main__":
     # art_nn.save()
 
     # test
-    art_nn.load("./saved_models", 6)
+    art_nn.load("./saved_models")
     y_pred = art_nn.ann.predict(data.get_X_test())
     np.set_printoptions(precision=2)
     viewable = np.concatenate((y_pred.reshape(len(y_pred), 1),
